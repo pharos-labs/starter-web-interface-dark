@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<!--/*****************************************************************************************
+// Starter Web Interface 8.0.0
+// Copyright (c) 2024 Pharos Controls Ltd. All rights reserved.
+// 
+// This sample content is made freely available for illustrative purposes only.
+// Pharos Controls Ltd grants a non-exclusive copyright license to use this sample 
+// content from which you can generate content tailored to your own specific needs for use
+// with products from Pharos Controls Ltd. This sample content has not been 
+// thoroughly tested under all conditions and Pharos Controls Ltd
+// cannot guarantee reliability or serviceability.
+// 
+// This sample content is provided "as is" without warranties of any kind.
+// The implied warranties of non-infringement, merchantability and fitness for a particular
+// purpose are expressly disclaimed. In no event shall Pharos Controls Ltd be liable
+// to any party for direct, indirect, incidental or consequential damages arising from the use of
+// this sample content.
+// 
+// For further information please contact support@pharoscontrols.com.
+//*****************************************************************************************-->
+
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Lighting Control Interface</title>
+	<link href="assets/images/favicon.png" rel="icon" type="image/x-icon">
+	<link href="assets/images/glyph.png" rel="apple-touch-icon">
+	<link href="assets/images/glyph72.png" rel="apple-touch-icon" sizes="72x72">
+	<link href="assets/images/glyph144.png" rel="apple-touch-icon" sizes="144x144">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=auto" />
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+	<link href="assets/jqueryUI/jquery-ui.css" rel="stylesheet">
+	<link href="assets/jqueryUI/jquery-ui.theme.css" rel="stylesheet">
+	<link href="assets/css/styles.css" rel="stylesheet">
+	<script src="assets/jquery/jquery.min.js">
+	</script>
+	<script src="assets/jqueryUI/jquery-ui.js">
+	</script>
+	<script src="assets/scripts/jquery.ba-throttle-debounce.js">
+	</script>
+	<script charset="utf-8" src="assets/colorpicker/iro.js">
+	</script>
+	<script charset="utf-8" src="assets/colorpicker/demo.js">
+	</script>
+	<script src="assets/scripts/jquery.knob.min.js">
+	</script>
+	<script src="assets/scripts/moment.js">
+	</script>
+	<script src="/default/js/query.js">
+	</script>
+	<script src="assets/jqueryUI/jquery.ui.touch-punch.js">
+	</script>
+	<script src="assets/scripts/fastclick.js">
+	</script>
+	<script type="text/javascript" src="/assets/scripts/query-socket.js" defer></script>
+	<script src="assets/scripts/pharos.js">
+	</script>
+	<script>
+		
+	    $(document).ready(function() {
+			Query.run_command('');
+			
+		//splash screen function with fades 
+	      function splash() {
+	          document.location = "index.html#splash";
+			  setTimeout(function() {
+	          content();
+	      }, 3000);
+	      }
+	     splash();
+
+
+	      function content(num) {
+			  
+	          setTimeout(function() {
+	              $('#splash').fadeOut(600);
+	          }, 4000);
+	          if ($(window).height() > 1133) {
+	              document.location = "index.html#info";
+				
+	          } else if ($(window).width() > 1133) {
+				
+	              document.location = "index.html#info";
+	          } else {
+	              document.location = "index.html#page0";
+	          }
+	          $('.footer').css("opacity", 1);
+	          setTimeout(function() {
+	              $('#splash').remove();
+	          }, 600);
+	      };
+				if (auth) {setTimeout(function() {
+					
+	              location.href='/logout';
+					
+	          }, 302000);
+				} else {
+					$('.logout').hide();
+				}
+			
+
+});
+		$(function() {
+	          FastClick.attach(document.body);
+	     });
+	</script>
+</head>
+<body>
+	
+	<div class="splash panel" id="splash">
+		<div class="splashLogo"><img src="assets/images/logo.svg"></div>
+	</div>
+	<div class="footer" id="footer">
+		<div class="footerBtnContainer">
+			<div id="home">
+				<div align="center" class="footerBtn">
+					<div align="center" class="hm icon"></div>
+				</div>
+			</div><a href="#page1" id="playback">
+			<div align="center" class="footerBtn">
+				<div align="center" class="sc icon"></div>
+			</div></a> <a href="#page2" id="triggers">
+			<div align="center" class="footerBtn">
+				<div align="center" class="tr icon"></div>
+			</div></a> <a href="#page3" id="pickers">
+			<div align="center" class="footerBtn">
+				<div align="center" class="cp icon"></div>
+			</div></a>
+			<div id="dimmers">
+				<div align="center" class="footerBtn">
+					<div align="center" class="is icon"></div>
+				</div>
+			</div><a id="allOff" onclick="off()">
+			<div align="center" class="footerBtn">
+				<div align="center" class="of icon color9"></div>
+			</div></a>
+		</div>
+	</div>
+	<div class="panel" id="page0">
+		<div class="container">
+			<div class="header">
+				<div class="logoContainer"><img class="logo" src="assets/images/logo.svg"></div>
+				<div class="help">
+					INFO
+				</div><div class="logout" onclick="location.href='/logout'">LOGOUT</div>
+				<div class="pageTitle">
+					Lighting Control Interface
+				</div>
+			</div>
+			<div class="content">
+				<div class="mainButtons">
+					<a href="#page1" id="mainScenes">
+					<div class="mainBtn">
+						<div class="sc icon2"></div><span>PLAYBACK</span>
+					</div></a> <a href="#page2" id="mainTriggers">
+					<div align="center" class="mainBtn">
+						<div class="tr icon2"></div><span>TRIGGERS</span>
+					</div></a> <a href="#page3" id="mainPickers">
+					<div align="center" class="mainBtn">
+						<div class="cp icon2"></div><span>OVERRIDES</span>
+					</div></a> <a href="#page4" id="mainDimmers">
+					<div align="center" class="mainBtn">
+						<div class="is icon2"></div><span>DIMMER</span>
+					</div></a> <a id="mainOff" onclick="off()">
+					<div align="center" class="mainBtn">
+						<div class="of icon2"></div><span>ALL OFF</span>
+					</div></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel" id="page1">
+		<div class="container">
+			<div class="header">
+				<div class="logoContainer"><img class="logo" src="assets/images/logo.svg"></div>
+				<div class="help">
+					INFO
+				</div><div class="logout" onclick="location.href='/logout'">LOGOUT</div>
+				<div class="pageTitle">
+					PLAYBACK
+				</div>
+			</div>
+			<div class="toggle1">
+				<div class="tlSwitch">
+					<div class="leftLabel">
+						TIMELINES
+					</div>
+					<div class="switch">
+						<input id="tlSwitch" name="toggle" type="checkbox"> <label for="toggle"><i></i></label>
+					</div>
+					<div class="rightLabel unchecked">
+						SCENES
+					</div>
+				</div>
+			</div>
+			<div class="content">
+				<div class="main">
+					<div class="timeTitle">
+						TIMELINES
+					</div>
+					<div class="timelineContainer">
+						<div class="buttons"></div>
+					</div>
+					<div class="scenesTitle">
+						SCENES
+					</div>
+					<div class="scenesContainer">
+						<div class="scenes"></div>
+					</div>
+				</div>
+			</div>
+			<div class="toggle2">
+				<div class="tlRel">
+					<div class="relSwitch">
+						<div class="relLabel">
+							RELEASE ALL IN GROUP FIRST?
+						</div>
+						<div class="leftLabel">
+							OFF
+						</div>
+						<div class="switch">
+							<input id="tlRelSwitch" name="toggle" type="checkbox"> <label for="toggle"><i></i></label>
+						</div>
+						<div class="rightLabel unchecked">
+							ON
+						</div>
+					</div>
+				</div>
+				<div class="scRel">
+					<div class="relSwitch">
+						<div class="relLabel">
+							RELEASE ALL IN GROUP FIRST?
+						</div>
+						<div class="leftLabel">
+							OFF
+						</div>
+						<div class="switch">
+							<input id="scRelSwitch" name="toggle" type="checkbox"> <label for="toggle"><i></i></label>
+						</div>
+						<div class="rightLabel unchecked">
+							ON
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel" id="page2">
+		<div class="container">
+			<div class="header">
+				<div class="logoContainer"><img class="logo" src="assets/images/logo.svg"></div>
+				<div class="help">
+					INFO
+				</div><div class="logout" onclick="location.href='/logout'">LOGOUT</div>
+				<div class="pageTitle">
+					TRIGGERS
+				</div>
+			</div>
+			<div class="toggle1">
+				<div class="filterLabel">
+					FILTER BY GROUP
+				</div>
+				<div class="filterContainer">
+					<div class="filterBtn" id="ungrouped" onclick="trFilter('ungrouped',0)">
+						NONE
+					</div>
+					<div class="filterBtn" id="a" onclick="trFilter('a',1)">
+						A
+					</div>
+					<div class="filterBtn" id="b" onclick="trFilter('b',2)">
+						B
+					</div>
+					<div class="filterBtn" id="c" onclick="trFilter('c',3)">
+						C
+					</div>
+					<div class="filterBtn" id="d" onclick="trFilter('d',4)">
+						D
+					</div>
+					<div class="filterBtn" id="e" onclick="trFilter('e',5)">
+						E
+					</div>
+					<div class="filterBtn" id="f" onclick="trFilter('f',6)">
+						F
+					</div>
+					<div class="filterBtn" id="g" onclick="trFilter('g',7)">
+						CLEAR
+					</div>
+				</div>
+			</div>
+			<div class="content">
+				<div class="triggerMessage">
+					<div class="triggerAlert">
+						TRIGGERS
+					</div>
+				</div>
+				<div class="main">
+					<div class="accordionContainer">
+						<aside class="accordion"></aside>
+					</div>
+				</div>
+			</div>
+			<div class="toggle2">
+				<div class="conSwitch">
+					<div class="leftLabel">
+						TEST CONDITIONS
+					</div>
+					<div class="switch">
+						<input id="conSwitch" name="toggle" type="checkbox"> <label for="toggle"><i></i></label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+		                var headers = ["H1", "H2", "H3", "H4", "H5", "H6"];
+		      $(".accordion").click(function(e) {
+		        var target = e.target,
+		            name = target.nodeName.toUpperCase();
+		        if ($.inArray(name, headers) > -1) {
+		            var subItem = $(target).next();
+		            console.log("target=" + target);
+		            //slideUp all elements (except target) at current depth or greater 
+		            var depth = $(subItem).parents().length;
+		            var allAtDepth = $(".accordion p, .accordion div").filter(function() {
+		                if ($(this).parents().length >= depth && this !== subItem.get(0)) {
+		                    return true;
+		                }
+		            });
+		            $(allAtDepth).slideUp("fast");
+		            subItem.slideToggle("fast", function() {
+		                subItem.parent().prev().children('.triangle').addClass("down");
+		            });
+		            $(target).css({
+		                "border-bottom-right-radius": "0",
+		                "border-bottom-left-radius": "0"
+		            });
+		            if ($(target).children('.triangle').hasClass("down")) {
+		                $(target).children('.triangle').removeClass("down");
+		            } else {
+		                $('.triangle').removeClass("down");
+		                $(target).children('.triangle').addClass("down");
+		            }
+		        }
+		      });
+		</script>
+	</div>
+	<div class="panel" id="page3">
+		<div class="container">
+			<div class="header">
+				<div class="logoContainer"><img class="logo" src="assets/images/logo.svg"></div>
+				<div class="help">
+					INFO
+				</div><div class="logout" onclick="location.href='/logout'">LOGOUT</div>
+				<div class="pageTitle">
+					OVERRIDES
+				</div>
+			</div>
+			
+			<div class="content">
+				
+				
+					<div class="cpContainer">
+						
+						<div class="main">
+					
+						<div id="demoWheel"></div>
+						<div id="ISPicker"></div>
+						<div id="kelvinPicker"></div>
+					</div>
+				</div>
+			</div>
+			<div class="toggle2">
+				<div class="label2">
+					GROUPS
+					<div class="subLabel">
+						(SCROLL)
+					</div>
+				</div>
+				<div class="selectGroups">
+					<div class="groups">
+					<div class="groupBtnsSmall">
+						<div class="btn2Small clearBtn">
+							CLEAR GROUP
+						</div>
+						<div class="btn2Small group allBtn" id="group0" onclick="setGroup(0)">
+							SELECT ALL
+						</div>
+					</div>
+					<div class="groupBtns"></div>
+				</div>
+					</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel" id="page4">
+		<div class="container">
+			<div class="header">
+				<div class="logoContainer"><img class="logo" src="assets/images/logo.svg"></div>
+				<div class="help">
+					INFO
+				</div><div class="logout" onclick="location.href='/logout'">LOGOUT</div>
+				<div class="pageTitle">
+					INTENSITY
+				</div>
+			</div>
+			<div class="content">
+				<div class="dimmerContainer">
+					<div class="zoneContainer">
+						<div class="zone">
+							<div class="zoneGroup" id="zone0" onclick="setIntGroup(0,'ALL')">
+								<div class="zoneTitle">
+									All
+								</div>
+								
+								<div class="zoneLevel zoneLevel0">
+									100%
+								</div>
+							</div>
+							<div class="intSwitch">
+								<input checked id="intSwitch0" name="toggle" onclick="intBox(0)" type="checkbox"> <label for="toggle"><i></i></label> <span></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel" id="page5">
+		<div align="center" class="container">
+			<div class="header">
+				<div class="logoContainer"><img class="logo" src="assets/images/logo.svg"></div>
+				<div class="pageTitle">
+					INFO
+				</div>
+			</div>
+			<div class="content">
+				<div class="back">
+					BACK
+				</div>
+				<div align="center" class="text">
+					
+					<span style="font-family:'futura_md_bt', sans-serif; text-decoration: underline;">Welcome</span><br>
+					This interface is free to use and created as a generic add-on to any project.  It uses our public API to provide status and controls for the elements in your programming without the need to add triggers.   It also is styled to sense the size screen or mobile device you are using to always provide an ergonomic layout of the controls and information. This interface may be customized so it better suits your project.  Please review our application note on the website for customization help and/or contact our support folks for any assistance.<br>
+					<br>
+					<span style="font-family:'futura_md_bt', sans-serif; text-decoration: underline;">Theory of operation</span><br>
+					This interface extracts all of your project’s “groups”, “timelines”, “scenes” and “triggers” and builds the interface dynamically to provide you the ability to interact with them.  Status of these elements is presented in real-time and operating them is instant.<br>
+					<br>
+					<span style="font-family:'futura_md_bt', sans-serif; text-decoration: underline;">New in this version</span><br>
+					Multiple timelines and scenes can now be operated at the same time as toggles, and they can be organized and managed by their group designation.<br>A triggers page is new allowing you to run triggers as well as ask them to check conditions.<br>New “All Off” options allow for releasing just the playback elements you desire.<br>Larger screen sizes will present a dashboard when you use the “home” menu selection. Small devices will only show the simple menu.<br>
+					<br>
+					<span style="font-family:'futura_md_bt', sans-serif; text-decoration: underline;">About</span><br>
+					Version 8.0.0 (March 2024)<br>Compatible with Designer 2.9 and higher using API v6.0 - 8.0<br>
+					<br>
+					</div><br><br><br><br>
+				</div>
+				</div>
+				
+			</div>
+		</div>
+	
+	<div class="panel" id="page6">
+		<div class="container">
+			<div class="header">
+				<div class="logoContainer"><img class="logo" src="assets/images/logo.svg"></div>
+				<div class="help">
+					INFO
+				</div>
+				<div class="logout" onclick="location.href='/logout'">LOGOUT</div>
+				<div class="pageTitle">
+					INTENSITY
+				</div>
+			</div>
+			<div class="content">
+				<div class="masterIntensityContainer">
+					<div class="title">
+						MASTER INTENSITY
+					</div>
+					<div class="subLabel"></div><br>
+					<div class="masterIntensity"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel" id="dimmer">
+		<div align="center" class="container">
+			<div class="header">
+				<div class="logoContainer"><img class="logo" src="assets/images/logo.svg"></div>
+				<div class="help">
+					INFO
+				</div>
+				<div class="logout" onclick="location.href='/logout'">LOGOUT</div>
+				<div class="pageTitle">
+					INTENSITY
+				</div>
+			</div>
+			<div class="toggle1">
+				<div class="intGroupName"></div>
+			</div>
+			<div class="content">
+				<div class="knobBg">
+					<div class="demo">
+						<input class="dial" data-angleoffset="-140" data-height="280" data-rotation="clockwise" data-width="280" value="100">
+						
+					</div>
+				</div>
+			</div>
+			<div class="toggle2">
+				<div class="back">
+					BACK
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel" id="allOffPage">
+		<div class="container">
+			<div class="header">
+				<div class="logoContainer"><img class="logo" src="assets/images/logo.svg"></div>
+				<div class="help">
+					INFO
+				</div>
+				<div class="logout" onclick="location.href='/logout'">LOGOUT</div>
+				<div class="pageTitle">
+					RELEASE SELECTIONS
+				</div>
+			</div>
+			<div class="content">
+				<div class="offContainer">
+					<div class="offTitle">
+						ALL OFF
+					</div>
+					<div class="toggleA">
+						<div class="allTlSwitch">
+							<span class="leftLabel">ALL TIMELINES</span>
+							<div class="switch">
+								<input id="allTlSwitch" name="toggle" type="checkbox"> <label for="toggle"><i></i></label>
+							</div>
+						</div>
+					</div>
+					<div class="toggleB">
+						<div class="allScSwitch">
+							<span class="leftLabel">ALL SCENES</span>
+							<div class="switch">
+								<input id="allScSwitch" name="toggle" type="checkbox"> <label for="toggle"><i></i></label>
+							</div>
+						</div>
+					</div>
+					<div class="toggleC">
+						<div class="clearSwitch">
+							<span class="leftLabel">CLEAR OVERRIDES</span>
+							<div class="switch">
+								<input id="clearSwitch" name="toggle" type="checkbox"> <label for="toggle"><i></i></label>
+							</div>
+						</div>
+					</div>
+					<div class="btn2 release">
+						RELEASE SELECTED
+					</div>
+					<div class="btn2 cancel">
+						CANCEL
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel" id="info">
+		<div class="container">
+			<div class="header">
+				<div class="logoContainer"><img class="logo" src="assets/images/logo.svg"></div>
+				<div class="help">
+					INFO
+				</div>
+				<div class="logout" onclick="location.href='/logout'">LOGOUT</div>
+				<div class="pageTitle">
+					SYSTEM DASHBOARD
+				</div>
+			</div>
+			<div class="content">
+				<div class="projectInfoContainer section">
+					<div class="title">
+						PROJECT INFORMATION
+					</div>
+					<div class="subLabel"></div><br>
+					<div class="projectInfo"></div>
+				</div>
+				<div class="systemInfoContainer section">
+					<div class="title">
+						SYSTEM INFORMATION
+					</div>
+					<div class="subLabel"></div><br>
+					<div class="systemInfo"></div>
+				</div>
+				<div class="systemStatusContainer section">
+					<div class="title">
+						ACTIVE TIMELINES &amp; SCENES
+					</div>
+					<div class="subLabel"></div><br>
+					<div class="systemStatus">
+					<div class="systemStatusTimelines"></div>
+					<div class="systemStatusScenes"></div>
+					</div>
+				</div>
+				<div class="groupStatusContainer section">
+					<div class="title">
+						MASTER INTENSITY
+					</div>
+					<div class="subLabel"></div><br>
+					<div class="groupStatus"></div>
+				</div>
+				<div class="divider"></div>
+			</div>
+		</div>
+	</div>
+	
+	<script>
+	   $("#dimmer .dial").knob({
+	   'min': 0,
+	   'max': 100,
+	   'angleArc': 280,
+	   'thickness': .2,
+	   'bgColor': "#cccdd0",
+	   'lineCap': "square",
+	   'step': 1,
+	   'inputColor': "#6d6e71",
+	   'fgColor': "#0080ff",
+	   'displayInput': true,
+	   'cursor': false,
+	   'format': function(value) {
+	       return value + '%';
+	   },
+	   'change': function(value) {
+	       var myValue = (parseInt(value, 0) / 100);
+	       if (intBlock){}else{
+		       Query.master_intensity({
+		           "num": intGroup,
+		           "level": myValue
+		       });
+	       }
+	       $('.zoneLevel' + intGroup).html(value + "%");
+	       $('.dial div').val($('.dial div').val() + '%');
+	       if (value === 0) {
+	           	$('#intSwitch' + intGroup).prop('checked', false);
+	       }else{
+	       		$('#intSwitch' + intGroup).prop('checked', true);
+	       }
+	   },
+	   'release': function(value) {
+	       var myValue = parseInt(value, 0) / 100;
+	       if (intBlock){}else{
+		       Query.master_intensity({
+		           "num": intGroup,
+		           "level": myValue
+		       });
+	       }
+	       $('.zoneLevel' + intGroup).html(value + "%");
+	       $('.dial + div').val($('.dial + div').val() + '%');
+	       if (value === 0) {
+	           	$('#intSwitch' + intGroup).prop('checked', false);
+           }else{
+				$('#intSwitch' + intGroup).prop('checked', true);
+	       }
+	   },
+	   'cancel': function() {
+	       console.log("cancel : ", this);
+	   }
+	});
+	</script>
+</body>
+</html>

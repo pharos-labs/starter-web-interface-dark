@@ -1,0 +1,83 @@
+/*****************************************************************************************
+// Starter Web Interface 8.0.0
+// Copyright (c) 2024 Pharos Controls Ltd. All rights reserved.
+//
+// This sample content is made freely available for illustrative purposes only.
+// Pharos Controls Ltd grants a non-exclusive copyright license to use this sample
+// content from which you can generate content tailored to your own specific needs for use
+// with products from Pharos Controls Ltd. This sample content has not been
+// thoroughly tested under all conditions and Pharos Controls Ltd
+// cannot guarantee reliability or serviceability.
+//
+// This sample content is provided "as is" without warranties of any kind.
+// The implied warranties of non-infringement, merchantability and fitness for a particular
+// purpose are expressly disclaimed. In no event shall Pharos Controls Ltd be liable
+// to any party for direct, indirect, incidental or consequential damages arising from the use of
+// this sample content.
+//
+// For further information please contact support@pharoscontrols.com.
+//*****************************************************************************************/
+
+
+
+
+@charset "UTF-8";
+/* Pharos Dark Version */
+:root {
+	/* Primary Color - Page Background */
+	--pri: #000000;
+	/* Secondary Color - Primary Text, Footer Icons, Off Container Background: ; */
+	--sec: #7c838a;
+	/* Accent Color - Secondary Text, Table Value Text */
+	--acc: #ffffff;
+	/* Tertiary Color - Intensity Toggle Swtich Active Color */
+	--ter: linear-gradient(#005ea3, #11a8fd);
+	/* Intensity Toggle Switch Off Background */
+	--off: linear-gradient(#36455b, #283446);
+	/* Container Color - Playback Accordion, Slider Container Background, Container Background */
+	--con: #363062;
+	/* Slider background container */
+	--scon: #363062;
+	/* Button Color - Button Color, Icon Active Color, Section Heading Color, LED Shadow */
+	--btn: #818FB4;
+	/* Secondary Button Color - Cancel Button */
+	--btn2: #d00000;
+	/* Active Color - Active Buttons, Active Elements */
+	--act: #00b100;
+	/* Active Text Color */
+	--actx: #ffffff;
+	/* Border Color, Container Text Color */
+	--bor: #818FB4;
+	/* Divider Color */
+	--div: #cccdd0;
+	/* Border Top */
+	--btop: 1px solid rgba(230, 230, 230, .1);
+	/* Border Bottom */
+	--bbot: 1px solid rgba(10, 10, 10, .1);
+	/* LED BackGround Gradient */
+	--led: linear-gradient(#ffffff, #77a1b9);
+	/* LED Center Color */
+	--ledc: rgb(100 231 253);
+	/* Table Header Text Color */
+	--ttxe: #F5E8C7;
+	/* Table Text Color Odd Rows */
+	--ttxo: #F5E8C7;
+	/* Table Odd Row Color */
+	--odd: #363062;
+	/* Table Even Row Color */
+	--even: #435585;
+	/* Footer Color - Footer Background Color */
+	--ftr: transparent;
+	/* Slider and Switch Handle Gradient */
+	--han: linear-gradient(#e9e9ea, #c9cbcb);
+	/* Slider Range Gradient */
+	--sld: linear-gradient(to right, #005ea3 0%, #11a8fd 100%);
+	/* Box Shadow */
+	--shdw: transparent;
+	/* Border Radius - Rounding of Element Corners */
+	--rad: 20px;
+}
+
+
+
+
