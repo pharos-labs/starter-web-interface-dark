@@ -35,6 +35,7 @@ var sLimit = 5000;
 var gLimit = 340;
 var intStart = "off"
 var intBlock = false;
+var intBlockTimerId = -1;
 var auth = true;
 var groupSort = "alpha"; // The sort order of the groups, can be num (sort by number), alpha (sort alphabetically), otherwise sort will be in creation order
 var playbackGroupNames = []; // This is loaded with group names as they arrive
@@ -43,10 +44,27 @@ function pad(str, max) {
 	str = str.toString();
 	return str.length < max ? pad("0" + str, max) : str;
 }
+
+// Setup intBlock flag
+// When set, slider updates are not sent back to the Controller
+// This can be used to prevent feedback loops
+function enableIntBlock()
+{
+	intBlock = true;
+	clearTimeout(intBlockTimerId)
+	intBlockTimerId = setTimeout(
+		function()
+		{
+			intBlock = false;
+			intBlockTimerId = -1
+		}, 500);
+}
+
+
 // Function to update dashboard slider values
 function updateDBSliders() {
-	intBlock = true;
 	Query.get_group_info(function(t) {
+		enableIntBlock();
 		for (var i = 0; i < Object.keys(t.groups).length; i++) {
 			if (t.groups[i].num >= gLimit) {} else {
 				$('#slider' + t.groups[i].num).slider("option", "value", t.groups[i].level);
@@ -59,12 +77,11 @@ function updateDBSliders() {
 			}
 		}
 	});
-	setTimeout(function() {intBlock = false;}, 500);
 }
 
 function updateIntensitySliders() {
-	intBlock = true;
 	Query.get_group_info(function(t) {
+		enableIntBlock();
 		for (var i = 0; i < Object.keys(t.groups).length; i++) {
 			if (t.groups[i].num >= gLimit) {} else {
 				$('#intensity' + t.groups[i].num).slider("option", "value", t.groups[i].level);
@@ -77,12 +94,11 @@ function updateIntensitySliders() {
 			}
 		}
 	});
-	setTimeout(function() {intBlock = false;}, 500);
 }
 
 function updateZoneLevel() {
-	intBlock = true;
 	Query.get_group_info(function(t) {
+		enableIntBlock();
 		for (var i = 0; i < Object.keys(t.groups).length; i++) {
 			if (t.groups[i].num >= gLimit) {} else {
 				$('.zoneLevel' + t.groups[i].num).text(t.groups[i].level + "%");
@@ -94,7 +110,6 @@ function updateZoneLevel() {
 			}
 		}
 	});
-	setTimeout(function() {intBlock = false;}, 500);
 }
 
 function msToTime(duration) {
@@ -649,7 +664,7 @@ Query.subscribe_timeline_status(function(q) {
 });
 Query.subscribe_group_status(function(g) {
 	var myHash = location.hash;
-	intBlock = true;
+	enableIntBlock();
 	if (g.num >= gLimit) {} else {
 		if (myHash === "#info") {
 			var myVal = $('#slider' + g.num).slider("option", "value");
@@ -681,7 +696,6 @@ Query.subscribe_group_status(function(g) {
 			$('#dimmer .dial').val(g.level + "%").trigger("change")
 		}
 	}
-	setTimeout(function() {intBlock = false;}, 500);
 });
 // Function that starts timelines
 function start_timeline(num) {
