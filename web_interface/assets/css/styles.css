@@ -1,20 +1,20 @@
 /*****************************************************************************************
-// Starter Web Interface 8.0.1
+// Starter Web Interface 8.0.2.BETA.1
 // Copyright (c) 2024 Pharos Controls Ltd. All rights reserved.
-// 
+//
 // This sample content is made freely available for illustrative purposes only.
-// Pharos Controls Ltd grants a non-exclusive copyright license to use this sample 
+// Pharos Controls Ltd grants a non-exclusive copyright license to use this sample
 // content from which you can generate content tailored to your own specific needs for use
-// with products from Pharos Controls Ltd. This sample content has not been 
+// with products from Pharos Controls Ltd. This sample content has not been
 // thoroughly tested under all conditions and Pharos Controls Ltd
 // cannot guarantee reliability or serviceability.
-// 
+//
 // This sample content is provided "as is" without warranties of any kind.
 // The implied warranties of non-infringement, merchantability and fitness for a particular
 // purpose are expressly disclaimed. In no event shall Pharos Controls Ltd be liable
 // to any party for direct, indirect, incidental or consequential damages arising from the use of
 // this sample content.
-// 
+//
 // For further information please contact support@pharoscontrols.com.
 //*****************************************************************************************/
 
@@ -88,7 +88,7 @@ a {
 	-webkit-transition: opacity .6s ease-in-out;
 	-o-transition: opacity .6s ease-in-out;
 	transition: opacity .6s ease-in-out;
-	
+
 }
 
 .panel:target {
@@ -365,7 +365,7 @@ a {
 	justify-content: center;
 	color: var(--bor);
 	border-radius: var(--rad);
-	
+
 	/*height: 45vh;
 	width: 75vw;*/
 	padding: 25px;
@@ -378,6 +378,7 @@ a {
 	border-radius: 5px;
 	border:0px;
 	background-color:var(--pri);
+	color:var(--acc);
 	padding:10px 0px 10px 10px;
 	font-size:18px;
 }
@@ -981,7 +982,7 @@ a {
 	font-family: 'futura_md_bt';
 	cursor: pointer;
 
-	
+
 }
 
 #page0 .header>.help {
@@ -2674,7 +2675,7 @@ a {
 	padding: 10px 15px 0px 15px;
 	display: -webkit-box;
    -webkit-line-clamp: 2; /* number of lines to show */
-           line-clamp: 2; 
+           line-clamp: 2;
    -webkit-box-orient: vertical;
 	overflow:hidden;
 }
