@@ -705,10 +705,10 @@ function start_timeline(num) {
 		});
 	} else {
 			if ($('#tlRelSwitch').is(":checked") && ($('#timeline' + num).parent().prev().text() != "Ungrouped")) {
-				var thisGroup = $('#timeline' + num).parent().prev().text().split(" ");
+				var thisGroup = $('#timeline' + num).parent().prev().text();
 				Query.release_all_timelines({
 					"fade": 2,
-					"group": thisGroup[1]
+					"group": thisGroup
 				});
 				setTimeout(function() {
 					Query.start_timeline({
@@ -731,10 +731,10 @@ function start_scene(num) {
 		});
 	} else {
 		if ($('#scRelSwitch').is(":checked") && ($('#scene' + num).parent().prev().text() != "Ungrouped")) {
-			var thisGroup = $('#scene' + num).parent().prev().text().split(" ");
+			var thisGroup = $('#scene' + num).parent().prev().text();
 			Query.release_all_scenes({
 				"fade": 2,
-				"group": thisGroup[1]
+				"group": thisGroup
 			});
 			Query.start_scene({
 				"num": num
