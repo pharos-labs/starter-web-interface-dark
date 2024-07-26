@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <!--/*****************************************************************************************
-// Starter Web Interface 8.0.2.BETA.1
+// Starter Web Interface 8.0.2.BETA.2
 // Copyright (c) 2024 Pharos Controls Ltd. All rights reserved.
-// 
+//
 // This sample content is made freely available for illustrative purposes only.
-// Pharos Controls Ltd grants a non-exclusive copyright license to use this sample 
+// Pharos Controls Ltd grants a non-exclusive copyright license to use this sample
 // content from which you can generate content tailored to your own specific needs for use
-// with products from Pharos Controls Ltd. This sample content has not been 
+// with products from Pharos Controls Ltd. This sample content has not been
 // thoroughly tested under all conditions and Pharos Controls Ltd
 // cannot guarantee reliability or serviceability.
-// 
+//
 // This sample content is provided "as is" without warranties of any kind.
 // The implied warranties of non-infringement, merchantability and fitness for a particular
 // purpose are expressly disclaimed. In no event shall Pharos Controls Ltd be liable
 // to any party for direct, indirect, incidental or consequential damages arising from the use of
 // this sample content.
-// 
+//
 // For further information please contact support@pharoscontrols.com.
 //*****************************************************************************************-->
 
@@ -47,7 +47,7 @@
 	</script>
 	<script src="assets/scripts/moment.js">
 	</script>
-	<script src="/default/js/query.js">
+	<script src="assets/scripts/query-local.js">
 	</script>
 	<script src="assets/jqueryUI/jquery.ui.touch-punch.js">
 	</script>
@@ -57,11 +57,11 @@
 	<script src="assets/scripts/pharos.js">
 	</script>
 	<script>
-		
+
 	    $(document).ready(function() {
 			Query.run_command('');
-			
-		//splash screen function with fades 
+
+		//splash screen function with fades
 	      function splash() {
 	          document.location = "index.html#splash";
 			  setTimeout(function() {
@@ -72,15 +72,15 @@
 
 
 	      function content(num) {
-			  
+
 	          setTimeout(function() {
 	              $('#splash').fadeOut(600);
 	          }, 4000);
 	          if ($(window).height() > 1133) {
 	              document.location = "index.html#info";
-				
+
 	          } else if ($(window).width() > 1133) {
-				
+
 	              document.location = "index.html#info";
 	          } else {
 	              document.location = "index.html#page0";
@@ -91,14 +91,14 @@
 	          }, 600);
 	      };
 				if (auth) {setTimeout(function() {
-					
+
 	              location.href='/logout';
-					
+
 	          }, 302000);
 				} else {
 					$('.logout').hide();
 				}
-			
+
 
 });
 		$(function() {
@@ -107,7 +107,7 @@
 	</script>
 </head>
 <body>
-	
+
 	<div class="splash panel" id="splash">
 		<div class="splashLogo"><img src="assets/images/logo.svg"></div>
 	</div>
@@ -319,7 +319,7 @@
 		        if ($.inArray(name, headers) > -1) {
 		            var subItem = $(target).next();
 		            console.log("target=" + target);
-		            //slideUp all elements (except target) at current depth or greater 
+		            //slideUp all elements (except target) at current depth or greater
 		            var depth = $(subItem).parents().length;
 		            var allAtDepth = $(".accordion p, .accordion div").filter(function() {
 		                if ($(this).parents().length >= depth && this !== subItem.get(0)) {
@@ -355,14 +355,14 @@
 					OVERRIDES
 				</div>
 			</div>
-			
+
 			<div class="content">
-				
-				
+
+
 					<div class="cpContainer">
-						
+
 						<div class="main">
-					
+
 						<div id="demoWheel"></div>
 						<div id="ISPicker"></div>
 						<div id="kelvinPicker"></div>
@@ -411,7 +411,7 @@
 								<div class="zoneTitle">
 									All
 								</div>
-								
+
 								<div class="zoneLevel zoneLevel0">
 									100%
 								</div>
@@ -438,7 +438,7 @@
 					BACK
 				</div>
 				<div align="center" class="text">
-					
+
 					<span style="font-family:'futura_md_bt', sans-serif; text-decoration: underline;">Welcome</span><br>
 					This interface is free to use and created as a generic add-on to any project.  It uses our public API to provide status and controls for the elements in your programming without the need to add triggers.   It also is styled to sense the size screen or mobile device you are using to always provide an ergonomic layout of the controls and information. This interface may be customized so it better suits your project.  Please review our application note on the website for customization help and/or contact our support folks for any assistance.<br>
 					<br>
@@ -449,15 +449,15 @@
 					Multiple timelines and scenes can now be operated at the same time as toggles, and they can be organized and managed by their group designation.<br>A triggers page is new allowing you to run triggers as well as ask them to check conditions.<br>New “All Off” options allow for releasing just the playback elements you desire.<br>Larger screen sizes will present a dashboard when you use the “home” menu selection. Small devices will only show the simple menu.<br>
 					<br>
 					<span style="font-family:'futura_md_bt', sans-serif; text-decoration: underline;">About</span><br>
-					Version 8.0.2.BETA.1 (March 2024)<br>Compatible with Designer 2.9 and higher using API v6.0 - 8.0<br>
+					Version 8.0.2.BETA.2 (March 2024)<br>Compatible with Designer 2.9 and higher using API v6.0 - 8.0<br>
 					<br>
 					</div><br><br><br><br>
 				</div>
 				</div>
-				
+
 			</div>
 		</div>
-	
+
 	<div class="panel" id="page6">
 		<div class="container">
 			<div class="header">
@@ -500,7 +500,7 @@
 				<div class="knobBg">
 					<div class="demo">
 						<input class="dial" data-angleoffset="-140" data-height="280" data-rotation="clockwise" data-width="280" value="100">
-						
+
 					</div>
 				</div>
 			</div>
@@ -610,7 +610,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<script>
 	   $("#dimmer .dial").knob({
 	   'min': 0,
