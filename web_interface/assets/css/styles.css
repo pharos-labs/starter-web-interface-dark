@@ -1,5 +1,5 @@
 /*****************************************************************************************
-// Starter Web Interface 8.0.2.BETA.2
+// Starter Web Interface 8.0.2
 // Copyright (c) 2024 Pharos Controls Ltd. All rights reserved.
 //
 // This sample content is made freely available for illustrative purposes only.
