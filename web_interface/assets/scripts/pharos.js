@@ -1,5 +1,5 @@
 /*****************************************************************************************
-// Starter Web Interface 8.0.2
+// Starter Web Interface 8.0.3
 // Copyright (c) 2024 Pharos Controls Ltd. All rights reserved.
 //
 // This sample content is made freely available for illustrative purposes only.
@@ -264,7 +264,10 @@ function scenes() {
 							$(`.accSCtop${playbackGroupIndex}`).text(playbackGroupName);
 						}
 					}
-					$(`.accSCsub${playbackGroupIndex}`).append('<div onclick="start_scene(' + t.scenes[i].num + ')" class="btn2" id="scene' + t.scenes[i].num + '">' + t.scenes[i].name + '</div>');
+
+					if (t.scenes[i].num <= sLimit) {
+						$(`.accSCsub${playbackGroupIndex}`).append('<div onclick="start_scene(' + t.scenes[i].num + ')" class="btn2" id="scene' + t.scenes[i].num + '">' + t.scenes[i].name + '</div>');
+					}
 
 				}
 			}
@@ -347,7 +350,7 @@ function groups() {
 
 		var grCount = 0; // Track the number of groups added
 		sortedGroups.forEach((group) => {
-			if (group.num > 0 && group.num !== null && grCount < gLimit) {
+			if (group.num > 0 && group.num !== null && group.num <= gLimit) {
 				var myName = "'" + group.name + "'";
 				$('.zoneContainer').append('<div class="zone"><div class="zoneGroup" id="zone' + grCount + '" onClick="setIntGroup(' + group.num + ',' + myName + ')"><div class="zoneTitle">' + group.name + '</div><div class="zoneLevel zoneLevel' + group.num + '">' + group.level + '%</div></div><div class="intSwitch"><input id="intSwitch' + group.num + '" type="checkbox" name="toggle" onClick="intBox(' + group.num + ')"  checked><label for="toggle"><i></i></label><span></span></div></div>');
 				$('.groupBtns').append('<div id="group' + group.num + '" onClick="setGroup(' + group.num + ')" class="btn2 group">' + group.name + '</div>');
